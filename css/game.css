@@ -1,0 +1,134 @@
+.background{
+	background: url(clouds.jpeg);
+	background-size: 100% 100%;
+    table-layout: fixed;
+    border-spacing: 0;   
+}
+
+.background td {
+	padding: 0;
+}
+
+.arrowTut {
+	background: url(arrows.png);
+}
+
+.gravTut {
+	background: url(lowGrav.png);
+}
+
+.energyTut {
+	background: url(energyOrbs.png);
+}
+
+.lavaTut {
+	background: url(thisLava.png);
+}
+
+.beginGame {
+	background: url(beginGame.png);
+}
+
+.bounce {
+	background: url(bouncePlat.png);
+}
+
+.timing {
+	background: url(timing.png);
+}
+
+.lava {
+	background: url(lavaStuff.jpg);
+	background-size: 55px 55px;
+}
+
+.wall{
+	background: url(walls.jpg);
+}
+
+.wall2{
+	background: url(walls.jpg);
+	box-shadow: inset 0px -15px 25px -10px rgb(0, 184 , 230);
+}
+
+.lost .player {
+	background: rgb(160, 64, 64);
+	box-shadow: inset 0px -25px 10px -10px rgb(160, 64 ,69);
+
+}
+
+.won .player{	
+	
+	box-shadow: inset  0px  2px 5px gold, inset 0px  2px 5px gold, 0px  2px 5px gold, 0px  2px 5px gold,;
+	border-radius: 25px;
+	
+}
+
+.backWin{
+	background: url(youWinTheGame.gif);
+	background-repeat: no-repeat;
+	background-position: 120% 40%;
+}
+
+.leftRun .player{
+	background: url(runAnim.gif);
+	background-repeat: no-repeat;
+	background-position: 15px 3px;
+	transform: rotateY(180deg);
+	padding-right:20px;
+}
+
+.run .player { 	
+	background: url(runAnim.gif);
+	background-repeat: no-repeat;
+	background-position: -3px 3px;
+	padding-right: 20px;
+
+}
+.air .player {
+	background: url(airAnim.gif);
+	background-repeat: no-repeat;
+	background-position: -3px 3px;
+	padding-left: 20px;
+}
+
+.leftAir .player{
+	background: url(airAnim.gif);
+	background-repeat: no-repeat;
+	transform: rotateY(180deg);
+	background-position: 15px 3px;
+	padding-right: 20px;
+}
+
+.actor {
+	position: absolute;  
+}
+
+.idle .player { 
+	background: url(idleAnim.gif); 
+	background-repeat: no-repeat;
+	background-position: -3px 3px;
+	padding-right: 20px;
+	
+}
+.coin {
+	background: url(energyBall.gif); 
+	padding: 4px;
+	background-repeat: no-repeat;
+	box-shadow: inset  0px  2px 6px black, inset 0px  2px 6px black, 0px  2px 5px black, 0px  2px 6px black,;
+	border-radius: 30px;
+}
+
+.pickUp {
+	background: url(gravLow.png);
+	background-size: 25px 25px;
+	
+	}
+
+
+.game {
+	overflow: hidden;
+	max-width: 600px;
+	max-height: 450px;
+	position: relative;
+}
