@@ -1,4 +1,3 @@
-
 //here is all the actors to be in the game area at any time through the game. some are tooltips, others are obstacles
 //references to the characters in the gameLevels code
 var actorChars = {
