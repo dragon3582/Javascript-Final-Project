@@ -100,7 +100,7 @@
 		}
 	}
 	  
-    function init() {
+    function init1() {
 		
 		//declare the canvas and context
 		canvas = document.getElementById('canvas');
@@ -358,4 +358,4 @@
 	}
 	
 	//once it loads the window call function init
-window.onload = init;
+window.onload = init1;

@@ -6,6 +6,9 @@ var actorChars = {
 	'o': Coin,
 	'=': Lava, '|': Lava, 'v': Lava,
 	'>': Wall2,
+//	'h': Wall3,
+//	'k': Wall4,
+//	'q': Quicksand,
 	'p': PickUp,
 	't': ArrowTut,
 	'g': GravTut,
@@ -16,6 +19,9 @@ var actorChars = {
 	'm': Patience
 	
 };
+
+var gameCanv;
+var gameCtx;
 
 /*
 if (!window.requestAnimationFrame)  
@@ -34,6 +40,14 @@ if (!window.requestAnimationFrame)
 } 
 */
 
+function gameHud() {
+	
+	gameCanv = document.getElementById('gameCanvas');
+	gameCtx = gameCanv.getContext('2d');
+	
+	
+
+}
   
 function Level(plan) {
 	
@@ -61,6 +75,7 @@ function Level(plan) {
 			if (Actor)
 			{
 				this.actors.push(new Actor(new Vector (x,y), ch));
+				if(ch == 'o') coinCount++;
 			}
 			else if (ch == "x")
 				fieldType = "wall";
@@ -437,7 +452,8 @@ var maxStep = 0.05;
 
 var wobbleSpeed = 8, wobbleDist = 0.07; 
 
-
+var coinCount = 0;
+var deathCount = 0;
 //collectible wobble movement
 Coin.prototype.act = function(step) { 
 	this.wobble += step * wobbleSpeed; 
@@ -600,10 +616,12 @@ Level.prototype.playerTouched = function(type, actor) {
 	{
 		this.status = 'lost';
 		this.finishDelay = 1.5;
+		deathCount++;
 	}
 	
 	else if(type == 'coin')
 	{
+		coinCount--;
 		this.actors = this.actors.filter(function(other) {
 			return other != actor; 
 		}); 
@@ -701,7 +719,10 @@ function runGame(plans, Display) {
     //create a new level using the nth element of array plans
     runLevel(new Level(plans[n]), Display, function(status) {
 		if(status == 'lost')
+		{
+			coinCount = 0;
 			startLevel(n);
+		}
 		else if(n < plans.length - 1)
 			startLevel(n + 1);
 		else

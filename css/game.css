@@ -131,12 +131,13 @@
 	max-width: 700px;
 	max-height: 550px;
 	position: relative;
+	z-index: 1;
 }
 
 #startButton {
 	font-family:'Jokerman';
 	font-size: 20px;
-	z-index: 2;
+	z-index: 6;
 	position: absolute;
 	width: 20%;
 	background: white;

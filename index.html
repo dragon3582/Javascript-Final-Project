@@ -2,14 +2,21 @@
 <script src="code/canvasdisplay.js"></script>
 <script src="code/game.js"></script>
 <script src="code/game_levels.js"></script>
+<script src="code/loadingScreen.js"></script>
 
 <link rel="stylesheet" href="css/game.css">
 
 <body>
 	
-	<canvas id = 'canvas' width = 500 height = 500 style="z-index: 1" ></canvas>
 	
-	<button id="startButton" type="submit" onclick='runTheGame()'>Ready to play the game? Click to Start.</button>
+	
+	<button id='startButton' type='submit' onclick='runTheGame()'>Ready to play the game? Click to Start.</button>
+	
+	<div id= 'contain' style='position:relative;'>
+	<canvas id = 'canvas' width = 500 height = 500 style='z-index: 5;' ></canvas>
+	<canvas id = 'myCanvas' width = 10 height = 10 style='position: absolute; z-index: 4; top: 50%;'></canvas>
+	<canvas id = 'gameCanvas' width = 500 height = 487 style= 'position: absolute; z-index: 3; top: 1%; left:55%;'></canvas>
+	</div>
 	
 	<script>
 	
@@ -17,9 +24,17 @@
 	{
 		var canvasRef = document.getElementById('canvas');
 		var buttonRef = document.getElementById('startButton');
+		var myCanvasRef = document.getElementById('myCanvas');
 		buttonRef.style.visibility = 'hidden';
 		canvasRef.remove();
-		runGame(GAME_LEVELS, DOMDisplay);
+		myCanvasRef.style.visibility = 'visible';
+		init();
+		setTimeout(function() {
+			myCanvasRef.remove();
+			runGame(GAME_LEVELS, DOMDisplay);
+		},5000);
+		
+		
 	}
 		
 	</script>
