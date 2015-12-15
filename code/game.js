@@ -631,7 +631,7 @@ Player.prototype.moveY = function(step, level, keys) {
 		}
 		else if(otherWall.type == 'airFan')
 		{
-			this.speed.y += Math.sin(-jumpSpeed);
+			this.speed.y += Math.sin(-jumpSpeed+8);
 		}
 	}
 	
