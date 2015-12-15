@@ -6,9 +6,9 @@ var actorChars = {
 	'o': Coin,
 	'=': Lava, '|': Lava, 'v': Lava,
 	'>': Wall2,
-//	'h': Wall3,
-//	'k': Wall4,
-//	'q': Quicksand,
+  	'h': AirFan,
+  	'q': AirTip,
+	'f': AirGuide,
 	'p': PickUp,
 	't': ArrowTut,
 	'g': GravTut,
@@ -16,7 +16,8 @@ var actorChars = {
 	'l': LavaTut,
 	'w': BeginGame,
 	'b': Bounce,
-	'm': Patience
+	'm': Patience,
+	'z': RunTip
 	
 };
 
@@ -40,14 +41,6 @@ if (!window.requestAnimationFrame)
 } 
 */
 
-function gameHud() {
-	
-	gameCanv = document.getElementById('gameCanvas');
-	gameCtx = gameCanv.getContext('2d');
-	
-	
-
-}
   
 function Level(plan) {
 	
@@ -75,7 +68,7 @@ function Level(plan) {
 			if (Actor)
 			{
 				this.actors.push(new Actor(new Vector (x,y), ch));
-				if(ch == 'o') coinCount++;
+
 			}
 			else if (ch == "x")
 				fieldType = "wall";
@@ -96,6 +89,35 @@ function Level(plan) {
 
 }
 
+function gameHud(level) {
+
+	coinCount = 0;
+	for(var i = 0; i < level.actors.length; i++)
+	{
+		if(level.actors[i].type == 'coin')
+		{
+			coinCount++;
+		}
+	}
+	
+	gameCanv = document.getElementById('gameCanvas');
+	gameCtx = gameCanv.getContext('2d');
+	
+	gameCtx.rect(0, 0, gameCanv.width, gameCanv.height);
+	gameCtx.lineWidth = 5;
+	
+	
+	if(deathCount || coinCount || coinCount == 0) gameCtx.clearRect(0, 0, gameCanv.width, gameCanv.height);
+	gameCtx.stroke();
+	gameCtx.font = '50px Castellar';
+	gameCtx.fillStyle = 'white';
+	gameCtx.fillText('DEATHS: ' + deathCount, 60, 100);
+	
+	gameCtx.fillText('ORBS LEFT: ' + coinCount, 60, 300);
+	
+	
+}
+
 Level.prototype.isFinished = function(){
 
 	return this.status != null && this.finishDelay < 0;
@@ -105,23 +127,6 @@ Level.prototype.isFinished = function(){
 //function to help set some hitboxes
 function Vector(x, y) {
 	this.x = x; this.y = y;
-}
-
-function pixelHitbox()
-{
-	var pixelMap = [];
-	for( var y = 0; y < 50; y++ ) {
-		for( var x = 0; x < 50; x++ ) {
-			//fetch pixel at current position
-			var pixel = 'css/idleAnim.gif';
-			//getImageData( x, y, 1, 1 );
-			//check that opacity is above zero
-			if( pixel[3] != 0 ) {
-				pixelMap.push( { x:x, y:y } );
-			}
-		}
-	}
-	return pixelMap;
 }
 
 Vector.prototype.plus = function(other) {
@@ -138,7 +143,6 @@ Vector.prototype.times = function(factor) {
 function Player(pos) {
 	this.pos = pos.plus(new Vector(0, -1.5));
 	this.size = new Vector(1.3, 1.7);
-	//this.size = new pixelHitbox();
 	this.speed = new Vector(0, 0);
 }
 Player.prototype.type = "player";
@@ -197,6 +201,15 @@ function Wall2(pos, ch){
 }
 Wall2.prototype.type = 'wall2';
 
+function AirFan(pos, ch){
+	
+	this.basePos = this.pos = pos.plus(new Vector(0.1, 0.1));
+	this.size = new Vector(1.5, 1.5);
+	this.wobble = Math.random() * Math.PI * 2; 
+
+}
+AirFan.prototype.type = 'airFan';
+
 //most of these functions are just defining the sizes of the tooltips that are around the beginning. only a position and size
 function ArrowTut(pos, ch) {
 
@@ -240,12 +253,33 @@ function Bounce(pos, ch) {
 }
 Bounce.prototype.type = 'bounce';
 
+function AirGuide(pos, ch) {
+
+	this.pos = pos;
+	this.size = new Vector(5, 2);
+}
+AirGuide.prototype.type = 'airGuide';
+
+function AirTip(pos, ch) {
+
+	this.pos = pos;
+	this.size = new Vector(4, 1.5);
+}
+AirTip.prototype.type = 'airTip';
+
 function Patience(pos, ch) {
 
 	this.pos = pos;
 	this.size = new Vector(4.5,1.4);
 }
 Patience.prototype.type = 'timing';
+
+function RunTip(pos, ch) {
+
+	this.pos = pos;
+	this.size = new Vector(4, 2);
+}
+RunTip.prototype.type = 'runTip';
 
 
 //helper function to easily create an element of a type provided 
@@ -448,6 +482,13 @@ Wall2.prototype.act = function(step, level)
 		
 };
 
+AirFan.prototype.act = function(step, level)
+{
+	this.wobble += step * wobbleSpeed; 
+	var wobblePos = Math.sin(this.wobble) * wobbleDist; 
+	this.pos = this.basePos.plus(new Vector(wobblePos, wobblePos));	
+};
+
 var maxStep = 0.05;
 
 var wobbleSpeed = 8, wobbleDist = 0.07; 
@@ -500,6 +541,17 @@ Patience.prototype.act = function(step) {
 
 };
 
+RunTip.prototype.act = function(step) {
+
+};
+
+AirGuide.prototype.act = function(step) {
+
+};
+
+AirTip.prototype.act = function(step) {
+
+};
 
 //player movement variables
 var maxStep = 0.05;
@@ -536,7 +588,7 @@ Player.prototype.moveX = function(step, level, keys) {
 		level.playerTouched(obstacle);
 	else
 		this.pos = newPos;
-		
+	
   
 };
 
@@ -576,6 +628,10 @@ Player.prototype.moveY = function(step, level, keys) {
 		if(otherWall.type == 'wall2') 
 		{
 			this.speed.y += -jumpSpeed/2;
+		}
+		else if(otherWall.type == 'airFan')
+		{
+			this.speed.y += Math.sin(-jumpSpeed);
 		}
 	}
 	
@@ -621,7 +677,6 @@ Level.prototype.playerTouched = function(type, actor) {
 	
 	else if(type == 'coin')
 	{
-		coinCount--;
 		this.actors = this.actors.filter(function(other) {
 			return other != actor; 
 		}); 
@@ -632,6 +687,8 @@ Level.prototype.playerTouched = function(type, actor) {
 			this.status = 'won ';
 			this.finishDelay = 1.5;
 		}
+		
+		gameHud(this);
 	}
 	
 	else if(type == 'pickUp')
@@ -711,20 +768,29 @@ function runLevel(level, Display, andThen) {
 			return false;
 		}
 	});
+	
+	if(deathCount == 0) gameHud(level);
+	gameHud(level);
 }
 
 
 function runGame(plans, Display) {
   function startLevel(n) {
+  
     //create a new level using the nth element of array plans
     runLevel(new Level(plans[n]), Display, function(status) {
+		
+		
 		if(status == 'lost')
 		{
 			coinCount = 0;
 			startLevel(n);
 		}
+				
 		else if(n < plans.length - 1)
+		{
 			startLevel(n + 1);
+		}
 		else
 		{
 			

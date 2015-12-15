@@ -46,9 +46,28 @@
 	background: url(walls.jpg);
 }
 
+.runTip {
+	background: url(runTip.png);
+}
+
+.airFan{
+	background: url(smoke.png);
+	border-radius: 50px;
+	background-position: 25% 30%;
+}
+
+.airTip{
+	background: url(smokeTip.png);
+}
+
+.airGuide{
+	background: url(smokeGuide.png);
+}
+
 .wall2{
 	background: url(walls.jpg);
 	box-shadow: inset 0px -15px 25px -10px rgb(0, 184 , 230);
+	                 
 }
 
 .lost .player {
@@ -67,7 +86,7 @@
 .backWin{
 	background: url(youWinTheGame.gif);
 	background-repeat: no-repeat;
-	background-position: 120% 40%;
+	background-position: -5px 45%;
 }
 
 .leftRun .player{
@@ -76,6 +95,10 @@
 	background-position: 15px 3px;
 	transform: rotateY(180deg);
 	padding-right:20px;
+	margin-left: -10px;
+	margin-right: 550px;
+	margin-bottom: 10px;
+
 }
 
 .run .player { 	
@@ -83,6 +106,10 @@
 	background-repeat: no-repeat;
 	background-position: -3px 3px;
 	padding-right: 20px;
+	margin-left: -10px;
+	margin-right: 550px;
+	margin-bottom: 10px;
+	
 
 }
 .air .player {
@@ -90,6 +117,10 @@
 	background-repeat: no-repeat;
 	background-position: -3px 3px;
 	padding-left: 20px;
+	margin-left: -10px;
+	margin-right: 550px;
+	margin-bottom: 10px;
+	
 }
 
 .leftAir .player{
@@ -98,10 +129,14 @@
 	transform: rotateY(180deg);
 	background-position: 15px 3px;
 	padding-right: 20px;
+	margin-left: -10px;
+	margin-right: 550px;
+	margin-bottom: 10px;
+	
 }
 
 .actor {
-	position: absolute;  
+	position: absolute;
 }
 
 .idle .player { 
@@ -109,6 +144,10 @@
 	background-repeat: no-repeat;
 	background-position: -3px 3px;
 	padding-right: 20px;
+	margin-left: -10px;
+	margin-right: 550px;
+	margin-bottom: 10px;
+	
 	
 }
 .coin {
@@ -146,4 +185,10 @@
 	background-position: -3px -25px;
 	top:70%;
 	right: 45%;
+}
+
+#gameCanvas {
+	
+	background: url(walls.jpg);
+
 }

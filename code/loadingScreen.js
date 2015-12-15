@@ -31,6 +31,23 @@
 		ctx.fillStyle = 'black';
 		ctx.fillRect(0, 0, theCanvas.width, theCanvas.height);
 		draw();
+		drawTheText();
+	}
+	
+	function drawTheText()
+	{
+		
+		var loadText = "LOADING";
+		var grad = ctx.createLinearGradient(-100, 0, 50, 0);
+		
+		grad.addColorStop(0, 'red');
+		grad.addColorStop(.5, 'orange');
+		grad.addColorStop(1, 'white');
+		
+
+		ctx.fillStyle = grad;
+		ctx.font = "40px Impact";
+		ctx.fillText(loadText,  -120, 200);	
 	}
 
 
