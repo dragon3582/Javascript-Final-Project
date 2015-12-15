@@ -263,7 +263,7 @@ AirGuide.prototype.type = 'airGuide';
 function AirTip(pos, ch) {
 
 	this.pos = pos;
-	this.size = new Vector(4, 1.5);
+	this.size = new Vector(4, 2.5);
 }
 AirTip.prototype.type = 'airTip';
 
