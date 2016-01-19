@@ -167,8 +167,8 @@
 
 .game {
 	overflow: hidden;
-	max-width: 53%;
-	max-height: 35em;
+	width: 50%;
+	height: 35em;
 	position: relative;
 	z-index: 1;
 }
