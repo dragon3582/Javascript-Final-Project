@@ -103,6 +103,9 @@ function gameHud(level) {
 	gameCanv = document.getElementById('gameCanvas');
 	gameCtx = gameCanv.getContext('2d');
 	
+	gameCtx.height = '5000%';
+	gameCtx.width = '35%';
+	
 	gameCtx.rect(0, 0, gameCanv.width, gameCanv.height);
 	gameCtx.lineWidth = 5;
 	
