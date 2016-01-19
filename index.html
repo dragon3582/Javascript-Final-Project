@@ -27,6 +27,8 @@
 		var myCanvasRef = document.getElementById('myCanvas');
 		var gameCanvRef = document.getElementById('gameCanvas');
 		gameCanvRef.style.visibility = 'visible';
+		gameCanvRef.height = window.innerHeight-100;
+		gameCanvRef.width = window.innerWidth/2.5;
 		buttonRef.style.visibility = 'hidden';
 		canvasRef.remove();
 		myCanvasRef.style.visibility = 'visible';
